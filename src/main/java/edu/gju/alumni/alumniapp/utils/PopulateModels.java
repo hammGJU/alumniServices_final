@@ -14,14 +14,13 @@ import edu.gju.alumni.alumniapp.models.GraduationSemester;
 import edu.gju.alumni.alumniapp.models.GraduationYear;
 import edu.gju.alumni.alumniapp.models.School;
 import edu.gju.alumni.alumniapp.models.Student;
+import edu.gju.alumni.alumniapp.models.StudentClearance;
 import edu.gju.alumni.alumniapp.models.StudentStatus;
 import edu.gju.alumni.alumniapp.models.UserGroup;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -36,6 +35,7 @@ public class PopulateModels {
         Department department = new Department();
         Gender gender = new Gender();
         StudentStatus status = new StudentStatus();
+        StudentClearance clearance = new StudentClearance();
         GraduationYear gradYear = new GraduationYear();
         GraduationSemester gradSemester = new GraduationSemester();
         student.setId(rs.getString(AlumniServEnum.STUDENT_ID.toString()));
@@ -54,7 +54,7 @@ public class PopulateModels {
         student.setDegree(degree);
         student.setGpa(rs.getDouble(AlumniServEnum.GPA.toString()));
         gender.setId(rs.getString(AlumniServEnum.GENDER_ID.toString()));
-        gender.setGenderName(AlumniServEnum.GENDER_NAME.toString());
+        gender.setGenderName(rs.getString(AlumniServEnum.GENDER_NAME.toString()));
         student.setGender(gender);
         status.setId(rs.getString(AlumniServEnum.STATUS_ID.toString()));
         status.setStatusName(rs.getString(AlumniServEnum.STATUS_NAME.toString()));
@@ -68,6 +68,11 @@ public class PopulateModels {
         gradSemester.setId(rs.getString(AlumniServEnum.GRADUATION_SEMESTER_ID.toString()));
         gradSemester.setSemesterName(rs.getString(AlumniServEnum.SEMESTER_NAME.toString()));
         student.setGradSemester(gradSemester);
+        clearance.setId(rs.getString(AlumniServEnum.STUDENT_ID.toString()));
+        clearance.setDsaClearance(rs.getString(AlumniServEnum.DSA_STATUS_ID.toString()));
+        clearance.setAccntClearance(rs.getString(AlumniServEnum.ACCOUNTANT_STATUS_ID.toString()));
+        clearance.setRegistClearance(rs.getString(AlumniServEnum.REGISTRAR_STATUS_ID.toString()));
+        student.setClearance(clearance);
         return student;
     }
 
@@ -122,6 +127,15 @@ public class PopulateModels {
         school.setId(rs.getString(AlumniServEnum.SCHOOL_ID.toString()));
         school.setShcoolName(rs.getString(AlumniServEnum.SCHOOL_NAME.toString()));
         return school;
+    }
+
+    public static StudentClearance populateClearance(ResultSet rs) throws SQLException {
+        StudentClearance clearance = new StudentClearance();
+        clearance.setId(rs.getString(AlumniServEnum.STUDENT_ID.toString()));
+        clearance.setDsaClearance(rs.getString(AlumniServEnum.DSA_STATUS_ID.toString()));
+        clearance.setAccntClearance(rs.getString(AlumniServEnum.ACCOUNTANT_STATUS_ID.toString()));
+        clearance.setRegistClearance(rs.getString(AlumniServEnum.REGISTRAR_STATUS_ID.toString()));
+        return clearance;
     }
 
 }

@@ -7,10 +7,10 @@
         <h:panelGrid id="student_info" columns="2"
                      style="float: #{langBean.styleFloat};" dir="#{langBean.dir}">
             <p:outputLabel value="#{msgs.student_id}" />
-            <p:outputLabel value=": test"/>
+            <p:outputLabel value="#{userBean.loggedStudent.id}"/>
 
             <p:outputLabel value="#{msgs.student_name}" />
-            <p:outputLabel value=": Bata"/>
+            <p:outputLabel value="#{userBean.loggedStudent.firstName}"/>
 
         </h:panelGrid>
 

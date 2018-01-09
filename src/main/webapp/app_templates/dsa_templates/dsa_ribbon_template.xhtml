@@ -58,7 +58,7 @@
 
             <p:tab title="#{msgs.dsa_students}" >
                 <h:form id="table_students_form" style="direction:#{langBean.dir}; width:100%">
-                    <p:dataTable id="table_students" var="student"  value="#{studentBean.studentList}" 
+                    <p:dataTable id="table_students" var="student"  value="#{studentBean.studentService.allStudents}" 
                                  rowKey="#{student.id}" rows="5" rowsPerPageTemplate="5, 10, 20" selection="#{studentBean.selectedStudent}"
                                  emptyMessage="#{msgs.no_data}" paginator="true" paginatorPosition="top"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -139,9 +139,23 @@
 
                         </p:column>
 
-                        <p:column style="width: 40%">
-                            <!--<p:commandLink value="#{msgs.sendLabel}"  action="/registrar/registrar_first_page.xhtml?faces-redirect=true"/>-->
-                            <p:link value="Send" href="/registrar/registrar_first_page.xhtml"/>
+                        <p:column headerText="#{msgs.student_clr_dsa}" styleClass="tableColumn"
+                                  filterBy="#{student.clearance.dsaClearance}" filterMatchMode="contains"
+                                  sortBy="#{student.id}">
+                            <h:outputText value="#{student.clearance.dsaClearance}" />
+                        </p:column>
+
+                        <p:column headerText="#{msgs.clear_button}" styleClass="tableColumn">
+                            <p:toolbar style="border: none">
+                                <p:toolbarGroup>
+                                    <p:commandButton value="#{msgs.clear_button}" styleClass="commandButton"
+                                                     style="float: left" 
+                                                     disabled="#{studentBean.selectedStudent==null}"
+                                                     icon="ui-icon-edit" iconPos="1"
+                                                     ajax="false"                                                                  
+                                                     action="/dsa/clear_student" />
+                                </p:toolbarGroup>
+                            </p:toolbar>
                         </p:column>
 
                         <f:facet name="footer">

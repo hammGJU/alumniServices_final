@@ -6,7 +6,7 @@
 package edu.gju.alumni.alumniapp.services;
 
 import edu.gju.alumni.alumniapp.daos.annotations.StdDAO;
-import edu.gju.alumni.alumniapp.daos.StudentDAO;
+import edu.gju.alumni.alumniapp.Idaos.StudentDAO;
 import edu.gju.alumni.alumniapp.models.Email;
 import edu.gju.alumni.alumniapp.models.Student;
 import java.sql.SQLException;
@@ -44,13 +44,8 @@ public class StudentService {
         return student;
     }
 
-    public int addStudent(Student student) throws SQLException {
+    public int addStudent(String student) throws SQLException {
         int result = studentDAO.addStudent(student);
-        return result;
-    }
-
-    public int editStudent(Student student) throws SQLException {
-        int result = studentDAO.editStudent(student);
         return result;
     }
 

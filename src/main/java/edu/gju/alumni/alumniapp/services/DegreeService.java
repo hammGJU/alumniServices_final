@@ -5,7 +5,7 @@
  */
 package edu.gju.alumni.alumniapp.services;
 
-import edu.gju.alumni.alumniapp.daos.DegreeDAO;
+import edu.gju.alumni.alumniapp.Idaos.DegreeDAO;
 import edu.gju.alumni.alumniapp.daos.annotations.DegDAO;
 import edu.gju.alumni.alumniapp.models.Degree;
 import java.sql.SQLException;

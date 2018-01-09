@@ -8,6 +8,7 @@
 
     <p:tabView id="tabs">
         <div >
+            <h:outputStylesheet library="css" name="app_style.css"/>
             <p:tab title="#{msgs.expected_graduate}" id="grads" >
                 <h:form id="form_grads" >
                     <p:dataTable id="graduatedStudentsTable" style="margin-bottom:0" var="students"
@@ -45,6 +46,25 @@
                                                      icon="ui-icon-edit" iconPos="1"
                                                      ajax="true"                                                                  
                                                      action="/registrar/send_emails" />
+                                    
+                                    <p:commandButton value="#{msgs.add}" type="button" onclick="PF('dlg1').show();" /> 
+
+ 
+                                    <p:dialog header="#{msgs.add}" widgetVar="dlg1" minHeight="40" style="width: fit-content">
+                                         <p:panelGrid id="grid" columns="3" layout="grid"  style="width: fit-content;">
+                                             <h:outputText value="#{msgs.student_id}" style="width: fit-content" />
+                                             <p:inputText id="student_id" value="#{studentBean.studentId}" required="true"/>
+                                             <p:commandButton value="#{msgs.add}" styleClass="commandButton"
+                                             icon="ui-icon-edit" iconPos="#"
+                                            ajax="false"
+                                            style="float:#{langBean.styleFloat}"                                                                   
+                                            action="#{studentBean.insertStudent()}"
+                                            />
+                                            
+                                         </p:panelGrid>
+                                    </p:dialog>
+                                    
+                                    
                                 </p:toolbarGroup>
                             </p:toolbar>
                         </f:facet>
@@ -99,6 +119,110 @@
                             <p:toolbar style="border: none">
                                 <p:toolbarGroup>
                                     <p:commandButton style="float: left" value="#{msgs.view}" icon="ui-icon-search" 
+                                                     disabled="#{studentBean.selectedStudent==null}"
+                                                     actionListener="#{studentBean.saveSelectedItemId()}"
+                                                     onclick="PF('clrDlg').show();"/>
+    <!--                                    <p:commandButton style="float: left" value="#{msgs.cancel}" 
+                                                     icon="ui-icon-minus" onclick="PF('multiStudentDialog').show();"/>-->
+                                </p:toolbarGroup>
+                            </p:toolbar>
+
+                        </f:facet>
+                        <!--                <f:facet name="footer">
+                                            <p:commandButton process="checkbox" update="growl" icon="ui-icon-search" value="View" oncomplete="PF.('multiStudentDialog').show();"/>
+                                        </f:facet>-->
+                    </p:dataTable>
+                    <p:dialog id="dialog" header="Selected Students" widgetVar="clrDlg" 
+                              modal="true" showEffect="fade" hideEffect="fade" resizable="true" 
+                              width="220" dynamic="true">
+                        <p:outputPanel id="panel" style="text-align:center;">
+                            <ui:repeat value="#{studentBean.selectedStudent}" var="std">
+                                <h:outputText value="#{student.id} - #{student.department}" style="display:block"/>
+                                <h:outputText value="#{student.id} - #{student.department}" style="display:block"/>
+                            </ui:repeat>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+            </p:tab>
+        </div>
+
+        <div>
+            <p:tab title="#{msgs.cleared_students}" id="clearance">
+                <h:form id="form_clearance" >
+                    <p:dataTable id="clearanceStudentsTable" style="margin-bottom:0" var="student"
+                                 value="#{studentBean.studentList}" rowKey="#{student.id}" rows="5" rowIndexVar="stdRow"
+                                 rowsPerPageTemplate="5, 10, 20" selection="#{studentBean.selectedStudent}"
+                                 emptyMessage="#{msgs.no_data}" paginator="true" paginatorPosition="top"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 >
+                        <p:ajax event="rowSelectRadio"
+                                update=":tabs:form_clearance:clearanceStudentsTable"
+                                listener="#{studentBean.onRowSelect}"
+                                />
+                        <!--                        <p:ajax event="rowSelectRadio"
+                                                        update=":tabs:form_clearance:clearanceStudentsTable"/>-->
+                        <f:facet name="header" class="ui-datatable-header">
+                            <p:outputPanel >
+                                <!--<p:inputText id="globalFilter" style="float: top;width:150px" onkeyup="PF('graduatedStudentsTable').filter()"  placeholder="Enter keyword"/>-->
+                                <h:outputText style="float: top" value="#{msgs.cleared_students}" />
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                        <p:column  id="sid" headerText="#{msgs.student_id}" filterBy="#{student.id}" filterMatchMode="contains"
+                                   styleClass="tableColumn"
+                                   sortBy="#{student.id}">
+                            <h:outputText value="#{student.id}" />
+                        </p:column>
+                        <p:column headerText="#{msgs.student_fname_en}" filterBy="#{student.firstName}" filterMatchMode="contains"
+                                  styleClass="tableColumn"
+                                  sortBy="#{student.firstName}">
+                            <h:outputText value="#{student.firstName}" />
+                        </p:column>
+                        <p:column headerText="#{msgs.student_lname_en}" filterBy="#{student.lastName}" filterMatchMode="contains"
+                                  styleClass="tableColumn"
+                                  sortBy="#{student.lastName}">
+                            <h:outputText value="#{student.lastName}" />
+                        </p:column>
+                        <p:column headerText="#{msgs.student_department}" filterBy="#{student.department.departmentName}" filterMatchMode="contains"
+                                  styleClass="tableColumn"
+                                  sortBy="#{student.department.departmentName}">
+                            <h:outputText value="#{student.department.departmentName}" />
+                        </p:column>
+                        <p:column headerText="#{msgs.student_school}" filterBy="#{student.school.shcoolName}" filterMatchMode="contains"
+                                  styleClass="tableColumn"
+                                  sortBy="#{student.school.shcoolName}">
+                            <h:outputText value="#{student.school.shcoolName}" />
+                        </p:column>
+                        <p:column headerText="#{msgs.status}" filterBy="#{student.status.statusName}" filterMatchMode="contains"
+                                  styleClass="tableColumn"
+                                  sortBy="#{student.status.statusName}">
+                            <h:outputText value="#{student.status.statusName}" />
+                        </p:column>
+
+                        <p:column headerText="#{msgs.clearance_status}" filterBy="#{student.status.statusName}" filterMatchMode="contains"
+                                  styleClass="tableColumn"
+                                  sortBy="#{student.clearance.registClearance}">
+                            <h:outputText value="#{student.clearance.registClearance}" />
+                        </p:column>
+
+                        <p:column headerText="#{msgs.clear_button}" styleClass="tableColumn" >
+
+                            <p:commandButton id="clearanceButton"
+                                             value="#{msgs.clear_button}" styleClass="commandButton"
+                                             style="float: left" 
+                                             disabled="#{studentBean.disabled}"
+                                             ajax="false"
+                                             icon="ui-icon-edit" iconPos="1"
+                                             actionListener="#{studentBean.disableButton()}"
+                                             action="/registrar/clear_student" />
+
+                        </p:column>
+
+                        <f:facet name="footer" class="ui-datatable-footer">
+                            <p:toolbar style="border: none">
+                                <p:toolbarGroup>
+                                    <p:commandButton style="float: left" styleClass="commandButton"
+                                                     value="#{msgs.view}" icon="ui-icon-search" 
                                                      disabled="#{studentBean.selectedStudent==null}"
                                                      actionListener="#{studentBean.saveSelectedItemId()}"
                                                      onclick="PF('clrDlg').show();"/>

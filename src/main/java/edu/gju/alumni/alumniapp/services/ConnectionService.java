@@ -6,8 +6,13 @@
 package edu.gju.alumni.alumniapp.services;
 
 import edu.gju.alumni.alumniapp.daos.annotations.ConnDAO;
-import edu.gju.alumni.alumniapp.daos.ConnectionDAO;
+import edu.gju.alumni.alumniapp.Idaos.ConnectionDAO;
+import edu.gju.alumni.alumniapp.models.Student;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -61,6 +66,16 @@ public class ConnectionService {
             connection.close();
         }
 //        }
+    }
+
+    public Map<String, String> login(String userName, String userPassword) throws SQLException {
+        Map<String, String> userGroup = new HashMap<>();
+        userGroup = connectionDao.login(userName, userPassword);
+        return userGroup;
+    }
+
+    public void logout() throws SQLException {
+        connectionDao.logout();
     }
 
 }

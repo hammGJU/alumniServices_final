@@ -26,7 +26,7 @@ import javax.mail.internet.MimeMessage;
  */
 public class SendEmail implements Serializable {
 
-    private final String HOST_KEY = "mail.smtp.host";
+     private final String HOST_KEY = "mail.smtp.host";
     private final String HOST = "127.0.0.1";
     private final String AUTH_KEY = "mail.smtp.auth";
     private final String PORT_KEY = "mail.smtp.port";

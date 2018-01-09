@@ -5,16 +5,25 @@
  */
 package edu.gju.alumni.alumniapp.beans;
 
+import edu.gju.alumni.alumniapp.models.Student;
 import edu.gju.alumni.alumniapp.services.ConnectionService;
+import edu.gju.alumni.alumniapp.utils.AlumniServEnum;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -25,57 +34,84 @@ import javax.inject.Inject;
 public class UserSessionBean implements Serializable {
 
     private String userName;
+    private String sessionName;
     private String userPassword;
     private Connection connection;
     private String selectedItemId;
+    private Student loggedStudent;
+    private HttpServletRequest request;
+    private HttpSession session;
     private int menuIndex = 0;
 
     @Inject
     private ConnectionService connService;
+//    @Inject
+//    private AlumniEditService alumniEditService;
+    private FacesContext facesContext;
 
     public UserSessionBean() {
     }
 
-    public void login() throws Exception {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
+    @PostConstruct
+    public void init() {
+        facesContext = FacesContext.getCurrentInstance();
+        request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+        session = request.getSession();
+//        loggedStudent = new Student();
+    }
+
+    public void login() {
+
         NavigationHandler navHandler = facesContext.getApplication().getNavigationHandler();
         boolean success = false;
-        this.connection = connService.getConnection();
-        Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("select * from employee");
-        String user;
-        String password;
-        while (rs.next()) {
-            user = rs.getString("EMPLOYEE_FIRST_NAME");
-            password = rs.getString("EMPLOYEE_LAST_NAME");
-            if (this.userName.equals(user) && this.userPassword.equals(password)) {
-                success = true;
-                break;
-            } else {
-                success = false;
-            }
+        Map<String, String> uGroup = new HashMap<>();
+        try {
+            uGroup = connService.login(this.userName, this.userPassword);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserSessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (uGroup != null) {
+            success = true;
+            for (String s : uGroup.keySet()) {
+                userName = s;
+            }
+            sessionName = (String) session.getAttribute("userName");
+            if (sessionName == null) {
+                setSessionName(userName);
+            }
+            session.setAttribute("userName", sessionName);
+        }
+
         if (success) {
+
             if (facesContext != null) {
 
-                navHandler.handleNavigation(facesContext, null, "/registrar/registrar_first_page?faces-redirect=true");
+                if (uGroup.get(userName).equals(AlumniServEnum.ADMIN.toString())) {
+                    navHandler.handleNavigation(facesContext, null, "/admin/admin_first_page?faces-redirect=true");
+                } else if (uGroup.get(userName).equals(AlumniServEnum.ALUMNI.toString())) {
+                    navHandler.handleNavigation(facesContext, null, "/alumni/alumni_first_page?faces-redirect=true");
+                } else if (uGroup.get(userName).equals(AlumniServEnum.REGISTRAR.toString())) {
+                    navHandler.handleNavigation(facesContext, null, "/registrar/registrar_first_page?faces-redirect=true");
+                } else if (uGroup.get(userName).equals(AlumniServEnum.DSA.toString())) {
+                    navHandler.handleNavigation(facesContext, null, "/dsa/dsa_employee_first_page?faces-redirect=true");
+                } else {
+                    navHandler.handleNavigation(facesContext, null, "/accountant/accountant_first_page?faces-redirect=true");
+                }
             }
         }
 
     }
 
-    public void logout() throws Exception {
-        if (connection != null) {
-            if (!connection.getAutoCommit()) {
-                connection.rollback();
-                connection.setAutoCommit(true);
-            }
-            connection.close();
-            connection = null;
+    @PreDestroy
+    public void logout() {
+        try {
+            connService.logout();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserSessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         setUserName(null);
         setUserPassword(null);
-        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext = FacesContext.getCurrentInstance();
         facesContext.getExternalContext().invalidateSession();
 
     }
@@ -126,6 +162,30 @@ public class UserSessionBean implements Serializable {
 
     public void setMenuIndex(int menuIndex) {
         this.menuIndex = menuIndex;
+    }
+
+    public HttpSession getSession() {
+        return session;
+    }
+
+    public void setSession(HttpSession session) {
+        this.session = session;
+    }
+
+    public String getSessionName() {
+        return sessionName;
+    }
+
+    public void setSessionName(String sessionName) {
+        this.sessionName = sessionName;
+    }
+
+    public Student getLoggedStudent() {
+        return loggedStudent;
+    }
+
+    public void setLoggedStudent(Student loggedStudent) {
+        this.loggedStudent = loggedStudent;
     }
 
 }

@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.gju.alumni.alumniapp.daos;
+package edu.gju.alumni.alumniapp.daosImpl;
 
-import edu.gju.alumni.alumniapp.daos.annotations.DeptDAO;
-import edu.gju.alumni.alumniapp.models.Department;
+import edu.gju.alumni.alumniapp.Idaos.SchoolDAO;
+import edu.gju.alumni.alumniapp.daos.annotations.SchlDAO;
+import edu.gju.alumni.alumniapp.models.School;
 import edu.gju.alumni.alumniapp.utils.AlumniServEnum;
 import edu.gju.alumni.alumniapp.utils.PopulateModels;
 import java.io.Serializable;
@@ -27,10 +28,10 @@ import javax.ejb.Stateless;
  *
  * @author hesham
  */
-@Local(DepartmentDAO.class)
-@Stateless(name = "deptDAOImpl")
-@DeptDAO
-public class DepartmentDAOImpl extends ConnectionDAOImpl implements DepartmentDAO, Serializable {
+@Local(SchoolDAO.class)
+@Stateless(name = "schoolDAO")
+@SchlDAO
+public class SchoolDAOImpl extends ConnectionDAOImpl implements SchoolDAO, Serializable {
 
     private Connection connection;
 
@@ -38,26 +39,25 @@ public class DepartmentDAOImpl extends ConnectionDAOImpl implements DepartmentDA
     @PostActivate
     public void init() {
         try {
-            this.connection = super.getConnection();
+//            this.connection = super.getConnection();
         } catch (Exception ex) {
-            Logger.getLogger(DepartmentDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SchoolDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public List<Department> getAllDepartments(int shcoolId) throws SQLException {
-        List<Department> departments = new ArrayList<>();
-        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_DEPARTMENTS.toString());
-        ps.setInt(1, shcoolId);
+    public List<School> getAllSchools() throws SQLException {
+        List<School> schools = new ArrayList<>();
+        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_ALL_SCHOOLS.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            Department dep = PopulateModels.populateDepartment(rs);
-
-            departments.add(dep);
+            School school = PopulateModels.populateSchool(rs);
+            schools.add(school);
         }
         rs.close();
         ps.close();
-        return departments;
+
+        return schools;
     }
 
 }

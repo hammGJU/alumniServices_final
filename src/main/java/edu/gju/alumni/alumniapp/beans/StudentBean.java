@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -43,6 +44,8 @@ public class StudentBean implements Serializable {
     private List<School> schools;
     private Department department;
     private List<Department> departments;
+    private boolean disabled;
+    int counter;
     @Inject
     private StudentService studentService;
     @Inject
@@ -56,12 +59,25 @@ public class StudentBean implements Serializable {
     private Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
     private Map<String, String> schoolMap;
     private Map<String, String> depMap;
-
+    private String student_id;
     public StudentBean() {
+        student_id = null;
     }
 
+    
+      public void setStudentId (String id)
+    {
+        student_id = id;
+    }
+    public String getStudentId ()
+    {
+        return student_id;
+    }
+    
     @PostConstruct
     public void populateStudents() {
+        disabled = true;
+        counter = 0;
         schoolMap = new HashMap<>();
         school = new School();
         department = new Department();
@@ -98,8 +114,8 @@ public class StudentBean implements Serializable {
 
     public void insertStudent() {
         try {
-            studentService.addStudent(this.student);
-            student = new Student();
+            studentService.addStudent(student_id);
+            //student = new Student();
         } catch (SQLException ex) {
             Logger.getLogger(StudentBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -268,6 +284,26 @@ public class StudentBean implements Serializable {
         this.listOfStudents = listOfStudents;
     }
 
-    
+    public void onRowSelect() {
+
+        disabled = false;
+        counter += 1;
+
+    }
+
+    public void disableButton() {
+        if (counter > 0) {
+            counter = 0;
+            disabled = true;
+        }
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+    }
 
 }

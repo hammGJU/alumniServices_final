@@ -2,6 +2,9 @@
     Author     : Firas.Alhawari
 */
 
+.ui-grid-col-4{
+    width: fit-content !important;
+}
 
 #app_container{
     box-shadow: 0 2px 7px #c0c0c0 !important;

@@ -7,7 +7,6 @@ package edu.gju.alumni.alumniapp.models;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -35,6 +34,7 @@ public class Student implements Serializable {
     private GraduationYear gradYear;
     private GraduationSemester gradSemester;
     private StudentJob studentJob;
+    private StudentClearance clearance;
 
     public String getId() {
         return id;
@@ -186,6 +186,14 @@ public class Student implements Serializable {
 
     public void setStudentJob(StudentJob studentJob) {
         this.studentJob = studentJob;
+    }
+
+    public StudentClearance getClearance() {
+        return clearance;
+    }
+
+    public void setClearance(StudentClearance clearance) {
+        this.clearance = clearance;
     }
 
     @Override

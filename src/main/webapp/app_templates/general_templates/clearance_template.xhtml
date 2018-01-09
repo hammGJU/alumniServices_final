@@ -1,0 +1,110 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">  
+    <h:form id="f_student_registrar">            
+        <p:messages id="msgs" closable="true" globalOnly="true"/>
+
+        <p:panel header="#{msgs.student_info}"                            
+                 style="min-height:400px; 
+                 direction:#{langBean.dir};margin-top:10px; font-size:10pt">
+            <h:panelGrid id="clear"
+                         style="float: #{langBean.styleFloat};" 
+                         columns="3"                              
+                         dir="#{langBean.dir}">
+                <p:outputLabel value="#{msgs.student_name}:" for="student_name_en"/>
+                <p:inputText id="student_name_en"
+                             style="width:600px"
+                             value="#{clearanceBean.student.firstName} #{clearanceBean.student.lastName}"                                      
+                             required="true"
+                             maxlength="512"
+                             disabled="true"
+                             requiredMessage="#{msgs.required_msg}">
+                </p:inputText>
+                <h:message for="student_name_en" styleClass="errorMsg"/>
+
+                <p:outputLabel value="#{msgs.student_id}:" for="student_id"/>
+                <p:inputText id="student_id"
+                             value="#{clearanceBean.student.id}"
+                             style="width:600px"
+                             required="true"
+                             maxlength="512"
+                             disabled="true"
+                             requiredMessage=" #{msgs.required_msg}">
+                </p:inputText>
+                <h:message for="student_id" styleClass="errorMsg"/>
+
+                <p:outputLabel value="#{msgs.student_school}:" for="student_schl"/>
+                <p:inputText id="student_schl"
+                             value="#{clearanceBean.student.school.shcoolName}"
+                             style="width:600px"
+                             required="true"
+                             maxlength="512"
+                             disabled="true"
+                             requiredMessage=" #{msgs.required_msg}">
+                </p:inputText>
+                <h:message for="student_schl" styleClass="errorMsg"/>
+
+                <p:outputLabel value="#{msgs.student_department}:" for="student_dpt"/>
+                <p:inputText id="student_dpt"
+                             value="#{clearanceBean.student.department.departmentName}"
+                             style="width:600px"
+                             required="true"
+                             maxlength="512"
+                             disabled="true"
+                             requiredMessage=" #{msgs.required_msg}">
+                </p:inputText>
+                <h:message for="student_dpt" styleClass="errorMsg"/>
+
+                <p:outputLabel value="#{msgs.email} 1:" for="student_email1"/>
+                <p:inputText id="student_email1"
+                             value="#{clearanceBean.student.email1}"
+                             style="width:600px"
+                             required="true"
+                             maxlength="512"
+                             disabled="true"
+                             requiredMessage=" #{msgs.required_msg}">
+                </p:inputText>
+                <h:message for="student_email1" styleClass="errorMsg"/>
+
+                <p:outputLabel value="#{msgs.email} 2:" for="student_email2"/>
+                <p:inputText id="student_email2"
+                             value="#{clearanceBean.student.email2}"
+                             style="width:600px"
+                             required="true"
+                             maxlength="512"
+                             disabled="true"
+                             requiredMessage=" #{msgs.required_msg}">
+                </p:inputText>
+                <h:message for="student_email2" styleClass="errorMsg"/>
+
+                <p:outputLabel value="#{msgs.clearance_status}:" for="dsa_clearance"/>
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                    <p:outputLabel for="dsa_clearance" value="#{msgs.clear_button}: " />
+                    <p:selectOneRadio id="dsa_clearance" value="#{clearanceBean.student.clearance.registClearance}"
+                                      layout="grid" columns="2">
+                        <f:selectItems value="#{clearanceBean.clearanceString}" var="c" itemLabel="#{c}" itemValue="#{c}"/>
+                    </p:selectOneRadio>
+                </h:panelGrid>
+                <h:message for="dsa_clearance" styleClass="errorMsg"/>
+
+            </h:panelGrid>
+        </p:panel>
+
+        <p:commandButton value="#{msgs.clear_button}"
+                         styleClass="commandButton"
+                         icon="ui-icon-send"
+                         iconPos="#{langBean.styleFloat}"
+                         ajax="false"
+                         style="float:#{langBean.styleFloat}"                                                                   
+                         actionListener="#{clearanceBean.editStudent()}" />
+        <p:commandButton value="#{msgs.cancel}"
+                         icon="ui-icon-cancel"  
+                         iconPos="#{langBean.styleFloat}"
+                         styleClass="commandButton"
+                         immediate="true" 
+                         style="float:#{langBean.styleFloat}"                                 
+                         action="/registrar/registrar_first_page"  />                                   
+    </h:form>
+</ui:composition>

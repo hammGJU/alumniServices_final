@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.gju.alumni.alumniapp.daos;
+package edu.gju.alumni.alumniapp.Idaos;
 
 import edu.gju.alumni.alumniapp.models.Degree;
 import edu.gju.alumni.alumniapp.models.Email;
@@ -25,9 +25,7 @@ public interface StudentDAO extends ConnectionDAO {
 
     public Student getStudentById(int id) throws SQLException;
 
-    public int addStudent(Student student) throws SQLException;
-
-    public int editStudent(Student student) throws SQLException;
+    public int addStudent(String student) throws SQLException;
 
     public int deleteStudent(int studentId) throws SQLException;
 

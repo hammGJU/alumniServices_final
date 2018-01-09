@@ -45,11 +45,19 @@
 
 
                     </p:column>
+
+                    <p:column  headerText="#{msgs.email}" styleClass="tableColumn"
+                               filterBy="#{student.email1}" filterMatchMode="contains"
+                               sortBy="#{student.email}">
+                        <h:outputText value="#{student.email1}" />
+
+
+                    </p:column>
                     
                     <p:column  headerText="#{msgs.email}" styleClass="tableColumn"
-                               filterBy="#{student.email}" filterMatchMode="contains"
+                               filterBy="#{student.email2}" filterMatchMode="contains"
                                sortBy="#{student.email}">
-                        <h:outputText value="#{student.email}" />
+                        <h:outputText value="#{student.email2}" />
 
 
                     </p:column>

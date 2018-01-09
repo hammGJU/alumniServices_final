@@ -38,6 +38,8 @@ public class ContactStudentBean implements Serializable {
     private StudentService studentService;
     @Inject
     private StudentBean studentBean;
+    @Inject
+    private ClearanceStatusBean clearanceBean;
 
     private final String emailUserName = "bata@my.localdomain";
     private final String emailPassowrd = "root";
@@ -110,18 +112,31 @@ public class ContactStudentBean implements Serializable {
     public void sendEmail() {
         List<String> emailsToRecieve = new ArrayList<>();
         SendEmail sendEmail = new SendEmail();
-        for (Student s : listOfStudents) {
-            String e1 = s.getEmail1();
-            String e2 = s.getEmail2();
+        if (listOfStudents != null) {
+            for (Student s : listOfStudents) {
+                String e1 = s.getEmail1();
+                String e2 = s.getEmail2();
+                if (e1 == null && e2 == null) {
+                    e1 = "ce743project.hamm@gmail.com";
+                    e2 = "ce743project.hamm@gmail.com";
+                } else if (e2 == null) {
+                    e2 = "ab.alhusseini@gju.edu.jo";
+                }
+                emailsToRecieve.add(e1);
+                emailsToRecieve.add(e2);
+            }
+
+        } else {
+            String e1 = student.getEmail1();
+            String e2 = student.getEmail2();
             if (e1 == null && e2 == null) {
                 e1 = "ce743project.hamm@gmail.com";
                 e2 = "ce743project.hamm@gmail.com";
             } else if (e2 == null) {
-                e2 = "ce743project.hamm@gmail.com";
+                e2 = "ab.alhusseini@gju.edu.jo";
             }
             emailsToRecieve.add(e1);
             emailsToRecieve.add(e2);
-
         }
         try {
             sendEmail.sendEmail("bata@my.localdomain", emailPassowrd, emailUserName, emailsToRecieve,

@@ -17,55 +17,55 @@
 
                         <h:panelGrid id="grid" columns="3"   style="width: inherit;">
                             <p:outputLabel value="#{msgs.student_id}"/>
-                            <p:outputLabel value="#{studentBean.selectedStudent.id}"/>
+                            <p:outputLabel value="#{editAlumniBean.student.id}"/>
                             <p:outputLabel value=""/>
 
                             <p:outputLabel value="#{msgs.student_fname_en}" for="studentFirstName"/>
-                            <p:inputText id="studentFirstName" value="#{studentBean.selectedStudent.firstName}" required="true">
+                            <p:inputText id="studentFirstName" value="#{editAlumniBean.student.firstName}" required="true">
                                 <f:validateLength minimum="1" />
                             </p:inputText>
                             <p:message for="studentFirstName" display="icon"/>
 
                             <p:outputLabel value="#{msgs.student_lname_en}" for="studentLastName"/>
-                            <p:inputText id="studentLastName" value="#{studentBean.selectedStudent.lastName}" required="true" >
+                            <p:inputText id="studentLastName" value="#{editAlumniBean.student.lastName}" required="true" >
                                 <f:validateLength minimum="1" />
                             </p:inputText>
                             <p:message for="studentLastName" display="icon" />
 
                             <p:outputLabel value="#{msgs.student_dob}"/>
-                            <p:outputLabel value="#{studentBean.selectedStudent.dateOfBirth}"/>
+                            <p:outputLabel value="#{editAlumniBean.student.dateOfBirth}"/>
                             <p:outputLabel value=""/>
 
                             <p:outputLabel value="#{msgs.student_nationality}"/>
-                            <p:outputLabel value="#{studentBean.selectedStudent.nationality}"/>
+                            <p:outputLabel value="#{editAlumniBean.student.nationality}"/>
                             <p:outputLabel value=""/>
 
                             <p:outputLabel value="#{msgs.student_school}"/>
-                            <p:outputLabel value="#{studentBean.selectedStudent.school}"/>
+                            <p:outputLabel value="#{editAlumniBean.student.school.shcoolName}"/>
                             <p:outputLabel value=""/>
 
                             <p:outputLabel value="#{msgs.student_department}"/>
-                            <p:outputLabel value="#{studentBean.selectedStudent.department}"/>
+                            <p:outputLabel value="#{editAlumniBean.student.department.departmentName}"/>
                             <p:outputLabel value=""/>
 
                             <p:outputLabel value="#{msgs.student_degree}"/>
-                            <p:outputLabel value="#{studentBean.selectedStudent.degree}"/>
+                            <p:outputLabel value="#{editAlumniBean.student.degree.degreeName}"/>
                             <p:outputLabel value=""/>
-                            
+
                             <p:outputLabel value="#{msgs.student_gpa}"/>
-                            <p:outputLabel value="#{studentBean.selectedStudent.gpa}"/>
+                            <p:outputLabel value="#{editAlumniBean.student.gpa}"/>
                             <p:outputLabel value=""/>
 
                             <p:outputLabel value="#{msgs.student_graduation_year}"/>
-                            <p:outputLabel value="#{studentBean.selectedStudent.gradYear}"/>
+                            <p:outputLabel value="#{editAlumniBean.student.gradYear.yearName}"/>
                             <p:outputLabel value=""/>
 
                             <p:outputLabel value="#{msgs.student_graduation_semester}"/>
-                            <p:outputLabel value="#{studentBean.selectedStudent.gradSemester}"/>
+                            <p:outputLabel value="#{editAlumniBean.student.gradSemester.semesterName}"/>
                             <p:outputLabel value=""/>
-                            
+
                             <p:outputLabel value="#{msgs.student_gender}"/>
-                            <p:outputLabel value="#{studentBean.selectedStudent.gender}"/>
+                            <p:outputLabel value="#{editAlumniBean.student.gender.genderName}"/>
                             <p:outputLabel value=""/>
 
                             <p:outputLabel value="#{msgs.student_job_status}" for="student_job_status_chckbx"/>
@@ -73,9 +73,9 @@
                                 <!-- value in check box must be array or collection-->
                                 <p:selectManyCheckbox id="student_job_status_chckbx"  >
                                     <f:validateRequired for="student_job_status_chckbx"/>
-                                    <f:selectItem itemLabel="Seeking for Job" itemValue="Seeking for Job" />
-                                    <f:selectItem itemLabel="Working" itemValue="Working" />
-                                    <f:selectItem itemLabel="Studying" itemValue="Studying" />
+                                    <f:selectItem itemLabel="Seeking for Job" itemValue="1" />
+                                    <f:selectItem itemLabel="Working" itemValue="3" />
+                                    <f:selectItem itemLabel="Studying" itemValue="2" />
                                 </p:selectManyCheckbox>
                             </h:panelGrid>
                             <p:message for="student_job_status_chckbx" display="icon" />
@@ -83,59 +83,71 @@
                             <p:outputLabel value="#{msgs.student_job_info}"/>
                             <h:panelGrid id="student_job_info"  columns="3" >
 
-                                <p:outputLabel value="#{msgs.student_job_company_name}" for="student_job_company_name"/>
-                                <p:inputText id="student_job_company_name" value="#{studentBean.selectedStudent.studentJob.companyName}" required="true">
+<!--                                <p:outputLabel value="#{msgs.student_job_company_name}" for="student_job_company_name"/>
+                                <p:inputText id="student_job_company_name" value="#{editAlumniBean.student.studentJob.companyName}" required="true">
                                     <f:validateLength minimum="1" />
                                 </p:inputText>
-                                <p:message for="student_job_company_name" display="icon"/>
+                                <p:message for="student_job_company_name" display="icon"/>-->
 
 
-                                <p:outputLabel value="#{msgs.student_job_company_position}" for="student_job_company_position"/>
-                                <p:inputText id="student_job_company_position" value="#{studentBean.selectedStudent.studentJob.studentPosition}" required="true">
+<!--                                <p:outputLabel value="#{msgs.student_job_company_position}" for="student_job_company_position"/>
+                                <p:inputText id="student_job_company_position" value="#{editAlumniBean.student.studentJob.studentPosition}" required="true">
                                     <f:validateLength minimum="1" />
                                 </p:inputText>
-                                <p:message for="student_job_company_position" display="icon"/>
+                                <p:message for="student_job_company_position" display="icon"/>-->
 
-                                <p:outputLabel value="#{msgs.student_job_company_country}" for="student_job_company_country"/>
-                                <p:inputText id="student_job_company_country" value="#{studentBean.selectedStudent.studentJob.conntry}" required="true">
+<!--                                <p:outputLabel value="#{msgs.student_job_company_country}" for="student_job_company_country"/>
+                                <p:inputText id="student_job_company_country" value="#{editAlumniBean.student.studentJob.conntry}" required="true">
                                     <f:validateLength minimum="1" />
                                 </p:inputText>
-                                <p:message for="student_job_company_country" display="icon"/>
-                                
-                                <p:outputLabel value="#{msgs.student_job_company_city}" for="student_job_company_city"/>
-                                <p:inputText id="student_job_company_city" value="#{studentBean.selectedStudent.studentJob.city}" required="true">
+                                <p:message for="student_job_company_country" display="icon"/>-->
+
+<!--                                <p:outputLabel value="#{msgs.student_job_company_city}" for="student_job_company_city"/>
+                                <p:inputText id="student_job_company_city" value="#{editAlumniBean.student.studentJob.city}" required="true">
                                     <f:validateLength minimum="1" />
                                 </p:inputText>
-                                <p:message for="student_job_company_city" display="icon"/>
-                                
+                                <p:message for="student_job_company_city" display="icon"/>-->
+
                                 <!--make calendar for job start date -->
                                 <!--Insert Code Here-->
-                                
+
                             </h:panelGrid>
                             <p:outputLabel value=""/>
 
-                            
+
                             <p:outputLabel value="#{msgs.student_exp}" for="yearsExperience"/>
-                            <p:inputText id="yearsExperience" value="#{studentBean.selectedStudent.yearsExperience}" required="true">
+                            <p:inputText id="yearsExperience" value="#{editAlumniBean.student.yearsExperience}" required="true">
                                 <f:validateLength minimum="1" />
                                 <f:validateDoubleRange minimum="0.0"/>
                             </p:inputText>
                             <p:message for="yearsExperience" display="icon" />
 
                             <p:outputLabel value="#{msgs.student_facebook_link}" for="facebookLink"/>
-                            <p:inputText id="facebookLink" value="#{studentBean.selectedStudent.facebookLink}" required="true">
-                                <f:validateRegex pattern="https:\/\/www.facebook.com\/"/>
+                            <p:inputText id="facebookLink" value="#{editAlumniBean.student.facebookLink}" required="true">
+<!--                                <f:validateRegex pattern="https:\/\/www.facebook.com\/"/>-->
                             </p:inputText>
                             <p:message for="facebookLink" display="hello" />
 
                             <p:outputLabel value="#{msgs.student_linkedIn_link}" for="linkedInLink"/>
-                            <p:inputText id="linkedInLink" value="#{studentBean.selectedStudent.facebookLink}" required="true">
-                                <f:validateRegex pattern="linkedIn link"/>
+                            <p:inputText id="linkedInLink" value="#{editAlumniBean.student.linkedInLink}" required="true">
+<!--                                <f:validateRegex pattern="linkedIn link"/>-->
                             </p:inputText>
                             <p:message for="linkedInLink" display="hello" />
 
-                            
+
                         </h:panelGrid>
+                        <p:commandButton value="#{msgs.edit}" styleClass="commandButton"
+                                         icon="ui-icon-edit" iconPos="#"
+                                         ajax="false"
+                                         style="float:#{langBean.styleFloat}"                                                                   
+                                         action="#{editAlumniBean.editAlumniInfo()}"
+                                         />
+                        <p:commandButton value="#{msgs.back}" styleClass="commandButton"
+                                         icon="ui-icon-edit" iconPos="#"
+                                         ajax="false"
+                                         style="float:#{langBean.styleFloat}"                                                                   
+                                         action="/alumni/alumni_first_page"
+                                         />
 
 
                         <!--<p:commandButton value="Non-Ajax" ajax="false" icon="ui-icon-check" validateClient="true" style="margin-right:10px"/>-->

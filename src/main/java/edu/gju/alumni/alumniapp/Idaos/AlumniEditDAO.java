@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.gju.alumni.alumniapp.daos;
+package edu.gju.alumni.alumniapp.Idaos;
 
-import edu.gju.alumni.alumniapp.models.Degree;
+import edu.gju.alumni.alumniapp.models.Student;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 import javax.ejb.Local;
 
 /**
@@ -16,8 +14,10 @@ import javax.ejb.Local;
  * @author hesham
  */
 @Local(ConnectionDAO.class)
-public interface DegreeDAO extends ConnectionDAO{
-    List<Degree> getAllDegrees() throws SQLException;
-    Map<Integer, Degree> degreeMap() throws SQLException;
-    
+public interface AlumniEditDAO extends ConnectionDAO {
+
+    public Student getAlumniInformation(String studentId) throws SQLException;
+
+    public int editAlumniInfo(Student student);
+
 }

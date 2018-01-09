@@ -5,7 +5,7 @@
  */
 package edu.gju.alumni.alumniapp.services;
 
-import edu.gju.alumni.alumniapp.daos.EmployeeDAO;
+import edu.gju.alumni.alumniapp.Idaos.EmployeeDAO;
 import edu.gju.alumni.alumniapp.daos.annotations.empDAO;
 import edu.gju.alumni.alumniapp.models.Email;
 import edu.gju.alumni.alumniapp.models.Employee;

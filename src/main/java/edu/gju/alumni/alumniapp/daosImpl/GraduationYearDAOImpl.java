@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.gju.alumni.alumniapp.daos;
+package edu.gju.alumni.alumniapp.daosImpl;
 
+import edu.gju.alumni.alumniapp.Idaos.GraduationYearDAO;
 import edu.gju.alumni.alumniapp.daos.annotations.GradYearDAO;
 import java.io.Serializable;
 import javax.ejb.Local;

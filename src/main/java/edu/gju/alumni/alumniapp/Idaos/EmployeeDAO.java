@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.gju.alumni.alumniapp.daos;
+package edu.gju.alumni.alumniapp.Idaos;
 
 import edu.gju.alumni.alumniapp.models.Employee;
 import java.sql.SQLException;

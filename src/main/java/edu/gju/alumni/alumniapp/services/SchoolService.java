@@ -5,7 +5,7 @@
  */
 package edu.gju.alumni.alumniapp.services;
 
-import edu.gju.alumni.alumniapp.daos.SchoolDAO;
+import edu.gju.alumni.alumniapp.Idaos.SchoolDAO;
 import edu.gju.alumni.alumniapp.daos.annotations.SchlDAO;
 import edu.gju.alumni.alumniapp.models.School;
 import java.sql.SQLException;
