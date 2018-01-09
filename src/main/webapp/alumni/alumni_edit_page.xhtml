@@ -71,12 +71,11 @@
                             <p:outputLabel value="#{msgs.student_job_status}" for="student_job_status_chckbx"/>
                             <h:panelGrid id="student_job_status_chckbx_panelGrid">
                                 <!-- value in check box must be array or collection-->
-                                <p:selectManyCheckbox id="student_job_status_chckbx"  >
-                                    <f:validateRequired for="student_job_status_chckbx"/>
-                                    <f:selectItem itemLabel="Seeking for Job" itemValue="1" />
-                                    <f:selectItem itemLabel="Working" itemValue="3" />
-                                    <f:selectItem itemLabel="Studying" itemValue="2" />
-                                </p:selectManyCheckbox>
+                                <p:selectOneRadio id="student_job_status_chckbx"
+                                                  value="#{editAlumniBean.student.status.id}">
+                                    
+                                    <f:selectItems value="#{editAlumniBean.jobMap.entrySet()}" var="c" itemLabel="#{c.value}" itemValue="#{c.key}"/>
+                                </p:selectOneRadio>
                             </h:panelGrid>
                             <p:message for="student_job_status_chckbx" display="icon" />
 
@@ -124,13 +123,13 @@
 
                             <p:outputLabel value="#{msgs.student_facebook_link}" for="facebookLink"/>
                             <p:inputText id="facebookLink" value="#{editAlumniBean.student.facebookLink}" required="true">
-<!--                                <f:validateRegex pattern="https:\/\/www.facebook.com\/"/>-->
+                                <!--                                <f:validateRegex pattern="https:\/\/www.facebook.com\/"/>-->
                             </p:inputText>
                             <p:message for="facebookLink" display="hello" />
 
                             <p:outputLabel value="#{msgs.student_linkedIn_link}" for="linkedInLink"/>
                             <p:inputText id="linkedInLink" value="#{editAlumniBean.student.linkedInLink}" required="true">
-<!--                                <f:validateRegex pattern="linkedIn link"/>-->
+                                <!--                                <f:validateRegex pattern="linkedIn link"/>-->
                             </p:inputText>
                             <p:message for="linkedInLink" display="hello" />
 
@@ -139,7 +138,8 @@
                         <p:commandButton value="#{msgs.edit}" styleClass="commandButton"
                                          icon="ui-icon-edit" iconPos="#"
                                          ajax="false"
-                                         style="float:#{langBean.styleFloat}"                                                                   
+                                         style="float:#{langBean.styleFloat}"  
+                                        
                                          action="#{editAlumniBean.editAlumniInfo()}"
                                          />
                         <p:commandButton value="#{msgs.back}" styleClass="commandButton"

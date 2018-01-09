@@ -39,7 +39,7 @@ public class SchoolDAOImpl extends ConnectionDAOImpl implements SchoolDAO, Seria
     @PostActivate
     public void init() {
         try {
-//            this.connection = super.getConnection();
+            this.connection = super.getConnection();
         } catch (Exception ex) {
             Logger.getLogger(SchoolDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -48,7 +48,7 @@ public class SchoolDAOImpl extends ConnectionDAOImpl implements SchoolDAO, Seria
     @Override
     public List<School> getAllSchools() throws SQLException {
         List<School> schools = new ArrayList<>();
-        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_ALL_SCHOOLS.toString());
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_SCHOOLS.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             School school = PopulateModels.populateSchool(rs);

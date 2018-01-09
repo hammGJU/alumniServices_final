@@ -13,14 +13,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author hesham
  */
-@Stateful
+@Stateless
 public class DegreeService {
 
     @Inject

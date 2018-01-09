@@ -41,7 +41,7 @@ public class DegreeDAOImpl extends ConnectionDAOImpl implements DegreeDAO, Seria
     @PostActivate
     public void init() {
         try {
-//            this.connection = super.getConnection();
+            this.connection = super.getConnection();
         } catch (Exception ex) {
             Logger.getLogger(DegreeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -50,7 +50,7 @@ public class DegreeDAOImpl extends ConnectionDAOImpl implements DegreeDAO, Seria
     @Override
     public List<Degree> getAllDegrees() throws SQLException {
         List<Degree> degrees = new ArrayList<>();
-        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_ALL_DEGREES.toString());
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_DEGREES.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Degree d = PopulateModels.populateDegrees(rs);
@@ -64,7 +64,7 @@ public class DegreeDAOImpl extends ConnectionDAOImpl implements DegreeDAO, Seria
     @Override
     public Map<Integer, Degree> degreeMap() throws SQLException {
         Map<Integer, Degree> degreeMap = new HashMap<>();
-        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_ALL_DEGREES.toString());
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_DEGREES.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Degree d = PopulateModels.populateDegrees(rs);

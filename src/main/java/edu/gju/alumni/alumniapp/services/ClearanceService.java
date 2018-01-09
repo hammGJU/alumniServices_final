@@ -12,14 +12,14 @@ import edu.gju.alumni.alumniapp.models.StudentClearance;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author hesham
  */
-@Stateful
+@Stateless
 public class ClearanceService {
 
     @Inject

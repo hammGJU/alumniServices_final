@@ -7,21 +7,20 @@ package edu.gju.alumni.alumniapp.services;
 
 import edu.gju.alumni.alumniapp.Idaos.EmployeeDAO;
 import edu.gju.alumni.alumniapp.daos.annotations.empDAO;
-import edu.gju.alumni.alumniapp.models.Email;
 import edu.gju.alumni.alumniapp.models.Employee;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author hesham
  */
-@Stateful
+@Stateless
 public class EmployeeService {
 
     @empDAO

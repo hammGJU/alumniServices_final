@@ -111,7 +111,7 @@ public enum AlumniServEnum {
     GET_STUDENT_BY_ID("SELECT * FROM STUDENTS WHERE STUDENT_ID=?"),
     EDIT_STUDENT("UPDATE STUDENTS SET STUDENT_FIRST_NAME=?, "
             + "STUDENT_LAST_NAME=?, "
-           + "DATE_OF_BIRTH=to_date(?,'DD.MM.YYYY'), "
+            + "DATE_OF_BIRTH=to_date(?,'DD.MM.YYYY'), "
             + "NATIONALITY=? ,"
             + "SCHOOL_ID=?, "
             + "DEPARTMENT_ID=?, "
@@ -131,22 +131,22 @@ public enum AlumniServEnum {
             + "WHERE STUDENT_ID=?"),
     DELETE_STUDENT("DELETE FROM STUDENTS WHERE STUDENT_ID=?"),
     INSERT_STUDENT("INSERT INTO STUDENTS (STUDENT_ID) values (?) "),
-//            + "STUDENT_FIRST_NAME, "
-//            + "STUDENT_LAST_NAME, "
-//            + "DATE_OF_BIRTH, "
-//            + "NATIONALITY, "
-//            + "SCHOOL_ID, "
-//            + "DEPARTMENT_ID, "
-//            + "DEGREE_ID, "
-//            + "GPA, "
-//            + "GENDER_ID, "
-//            + "STATUS_ID, "
-//            + "YEARS_OF_EXPERIENCE, "
-//            + "FACEBOOK, "
-//            + "LINKEDIN, "
-//            + "GRADUATION_YEAR_ID, "
-//            + "GRADUATION_SEMESTER_ID) VALUES ((SELECT MAX(STUDENT_ID) FROM STUDENTS)+1,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"),
-            
+    //            + "STUDENT_FIRST_NAME, "
+    //            + "STUDENT_LAST_NAME, "
+    //            + "DATE_OF_BIRTH, "
+    //            + "NATIONALITY, "
+    //            + "SCHOOL_ID, "
+    //            + "DEPARTMENT_ID, "
+    //            + "DEGREE_ID, "
+    //            + "GPA, "
+    //            + "GENDER_ID, "
+    //            + "STATUS_ID, "
+    //            + "YEARS_OF_EXPERIENCE, "
+    //            + "FACEBOOK, "
+    //            + "LINKEDIN, "
+    //            + "GRADUATION_YEAR_ID, "
+    //            + "GRADUATION_SEMESTER_ID) VALUES ((SELECT MAX(STUDENT_ID) FROM STUDENTS)+1,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"),
+
     UPDATE_STUDENT_DSA_CLEARANCE("UPDATE CLEARANCE SET DSA_STATUS_ID=?, "
             + "REGISTRAR_STATUS_ID=?, ACCOUNTANT_STATUS_ID=? WHERE STUDENT_ID=?"),
     UPDATE_STUDENT_REGIST_CLEARANCE("UPDATE CLEARANCE SET REGISTRAR_STATUS_ID=? WHERE STUDENT_ID=?"),
@@ -196,7 +196,8 @@ public enum AlumniServEnum {
     GET_CLEARANCE_STRING("SELECT CLEARANCE_STATUS.STATUS_ID, CLEARANCE_STATUS.STATUS_NAME "
             + "FROM CLEARANCE_STATUS ORDER BY CLEARANCE_STATUS.STATUS_NAME"),
     GET_ALL_USERS("SELECT USER_NAME, USER_PASSWORD, GROUP_NAME FROM V_USER_ROLE "
-            + "WHERE USER_NAME=?");
+            + "WHERE USER_NAME=?"),
+    SELECT_STUDENT_JOB_STATUS("SELECT STATUS_ID, STATUS_NAME FROM STUDENT_STATUS");
     private String columnName;
 
     private AlumniServEnum(String columnName) {

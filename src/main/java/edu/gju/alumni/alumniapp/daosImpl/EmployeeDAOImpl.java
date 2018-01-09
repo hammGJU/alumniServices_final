@@ -41,7 +41,7 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
     @PostActivate
     public void init() {
         try {
-//            this.connection = super.getConnection();
+            this.connection = super.getConnection();
         } catch (Exception ex) {
             Logger.getLogger(EmployeeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -50,7 +50,7 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
     @Override
     public List<Employee> getAllEmployees() throws SQLException {
         List<Employee> employees = new ArrayList<>();
-        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_ALL_EMPLOYEES.toString());
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_EMPLOYEES.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Employee e = PopulateModels.populateEmployee(rs);
@@ -63,7 +63,7 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
 
     @Override
     public Employee getEmployeeById(int id) throws SQLException {
-        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_EMPLOYEE_BY_ID.toString());
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_EMPLOYEE_BY_ID.toString());
         ps.setString(1, Integer.toString(id));
         ResultSet rs = ps.executeQuery();
         Employee employee = new Employee();
@@ -209,7 +209,7 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
     @Override
     public Map<Integer, String> getGroupsMap() throws SQLException {
         Map<Integer, String> groups = new HashMap<>();
-        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.SELECT_GROUPS.toString());
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.SELECT_GROUPS.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             groups.put(rs.getInt(AlumniServEnum.GROUP_ID.toString()), rs.getString(AlumniServEnum.EMPLOYEE_DEPARTMENT.toString()));
@@ -219,7 +219,7 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
 
     public int maxEmployeeId() throws SQLException {
         int maxId = 0;
-        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GENERATE_EMPLOYEE_ID.toString());
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GENERATE_EMPLOYEE_ID.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             maxId = rs.getInt(AlumniServEnum.EMPLOYEE_ID.toString());

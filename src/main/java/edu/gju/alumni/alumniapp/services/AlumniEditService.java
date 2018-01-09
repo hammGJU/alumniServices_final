@@ -10,14 +10,16 @@ import edu.gju.alumni.alumniapp.daos.annotations.AlumniEdit;
 import edu.gju.alumni.alumniapp.models.Student;
 import java.io.Serializable;
 import java.sql.SQLException;
-import javax.ejb.Stateful;
+import java.util.HashMap;
+import java.util.Map;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author hesham
  */
-@Stateful
+@Stateless
 public class AlumniEditService implements Serializable {
 
     @AlumniEdit
@@ -36,6 +38,11 @@ public class AlumniEditService implements Serializable {
     public int editALumniInfo(Student student) throws SQLException {
         int result = alumniDAO.editAlumniInfo(student);
         return result;
+    }
+    public Map<String, String> getJobStatusMap() throws SQLException {
+        Map<String, String> statuses = new HashMap<>();
+        statuses = alumniDAO.getJobStatusMap();
+        return statuses;
     }
 
     public AlumniEditDAO getAlumniDAO() {

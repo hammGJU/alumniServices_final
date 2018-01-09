@@ -24,6 +24,8 @@ import javax.ejb.PostActivate;
 import javax.ejb.Stateless;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -129,6 +131,16 @@ public class AlumniEditDAOImpl extends ConnectionDAOImpl implements Serializable
             }
         }
         return result;
+    }
+     @Override
+    public Map<String, String> getJobStatusMap() throws SQLException {
+        Map<String, String> statusMap = new HashMap<>();
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.SELECT_STUDENT_JOB_STATUS.toString());
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            statusMap.put((rs.getString(AlumniServEnum.STATUS_ID.toString())), rs.getString(AlumniServEnum.STATUS_NAME.toString()));
+        }
+        return statusMap;
     }
 
 }

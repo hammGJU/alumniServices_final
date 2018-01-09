@@ -7,17 +7,13 @@ package edu.gju.alumni.alumniapp.daosImpl;
 
 import edu.gju.alumni.alumniapp.Idaos.ConnectionDAO;
 import edu.gju.alumni.alumniapp.daos.annotations.ConnDAO;
-import edu.gju.alumni.alumniapp.models.Student;
 import edu.gju.alumni.alumniapp.utils.AlumniServEnum;
-import edu.gju.alumni.alumniapp.utils.PopulateModels;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;

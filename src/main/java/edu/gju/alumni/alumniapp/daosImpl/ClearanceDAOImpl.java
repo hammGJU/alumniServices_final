@@ -41,7 +41,7 @@ public class ClearanceDAOImpl extends ConnectionDAOImpl implements ClearanceDAO,
     @PostActivate
     public void init() {
         try {
-//            this.connection = super.getConnection();
+            this.connection = super.getConnection();
         } catch (Exception ex) {
             Logger.getLogger(DegreeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -50,7 +50,7 @@ public class ClearanceDAOImpl extends ConnectionDAOImpl implements ClearanceDAO,
     @Override
     public List<StudentClearance> getClearanceStatuses(Student student) throws SQLException {
         List<StudentClearance> clearances = new ArrayList<>();
-        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_ALL_CLEARANCE.toString());
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_CLEARANCE.toString());
         ps.setString(1, student.getId());
         ResultSet rs = ps.executeQuery();
         StudentClearance clearance = new StudentClearance();
@@ -64,7 +64,7 @@ public class ClearanceDAOImpl extends ConnectionDAOImpl implements ClearanceDAO,
     @Override
     public List<String> cleranceString() throws SQLException {
         List<String> clearStrings = new ArrayList<>();
-        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_CLEARANCE_STRING.toString());
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_CLEARANCE_STRING.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             clearStrings.add(rs.getString(AlumniServEnum.CLEARANCE_STATUS_NAME.toString()));
@@ -81,7 +81,7 @@ public class ClearanceDAOImpl extends ConnectionDAOImpl implements ClearanceDAO,
 //        try {
 //            connection.setAutoCommit(false);
 
-            ps = getConnection().prepareStatement(AlumniServEnum.UPDATE_STUDENT_DSA_CLEARANCE.toString());
+            ps = connection.prepareStatement(AlumniServEnum.UPDATE_STUDENT_DSA_CLEARANCE.toString());
             ps.setString(1, student.getClearance().getDsaClearance());
             ps.setString(2, student.getClearance().getRegistClearance());
             ps.setString(3, student.getClearance().getAccntClearance());

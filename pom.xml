@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>edu.gju.alumni</groupId>
-    <artifactId>AlumniServices1-abdullah</artifactId>
+    <artifactId>AlumniServices1-f</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>AlumniServices1-abdullah</name>
+    <name>AlumniServices1</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -57,7 +57,8 @@
                 <artifactId>maven-glassfish-plugin</artifactId>
                 <version>2.1</version>
                 <configuration>
-                    <glassfishDirectory>C:\\glassfish4\\glassfish</glassfishDirectory>
+                    <!--C:\\glassfish4\\glassfish-->
+                    <glassfishDirectory>/home/hesham/glassfish4/glassfish4/glassfish</glassfishDirectory>
                     <user>admin</user>
                     <adminPassword>root</adminPassword>
                     <domain>

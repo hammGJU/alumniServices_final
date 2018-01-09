@@ -39,7 +39,7 @@ public class DepartmentDAOImpl extends ConnectionDAOImpl implements DepartmentDA
     @PostActivate
     public void init() {
         try {
-//            this.connection = super.getConnection();
+            this.connection = super.getConnection();
         } catch (Exception ex) {
             Logger.getLogger(DepartmentDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -48,7 +48,7 @@ public class DepartmentDAOImpl extends ConnectionDAOImpl implements DepartmentDA
     @Override
     public List<Department> getAllDepartments(int shcoolId) throws SQLException {
         List<Department> departments = new ArrayList<>();
-        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_ALL_DEPARTMENTS.toString());
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_DEPARTMENTS.toString());
         ps.setInt(1, shcoolId);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
