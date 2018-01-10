@@ -51,17 +51,17 @@
 
  
                                     <p:dialog header="#{msgs.add}" widgetVar="dlg1" minHeight="40" style="width: fit-content">
-                                         <p:panelGrid id="grid" columns="3" layout="grid"  style="width: fit-content;">
-                                             <h:outputText value="#{msgs.student_id}" style="width: fit-content" />
-                                             <p:inputText id="student_id" value="#{studentBean.studentId}" required="true"/>
-                                             <p:commandButton value="#{msgs.add}" styleClass="commandButton"
-                                             icon="ui-icon-edit" iconPos="#"
-                                            ajax="false"
-                                            style="float:#{langBean.styleFloat}"                                                                   
-                                            action="#{studentBean.insertStudent()}"
-                                            />
-                                            
-                                         </p:panelGrid>
+                                        <p:panelGrid id="grid" columns="3" layout="grid"  style="width: fit-content;">
+                                            <h:outputText value="#{msgs.student_id}" style="width: fit-content" />
+                                            <p:inputText id="student_id" value="#{studentBean.studentId}" required="true"/>
+                                            <p:commandButton value="#{msgs.add}" styleClass="commandButton"
+                                                             icon="ui-icon-edit" iconPos="#"
+                                                             ajax="false"
+                                                             style="float:#{langBean.styleFloat}"                                                                   
+                                                             action="#{studentBean.insertStudent()}"
+                                                             />
+
+                                        </p:panelGrid>
                                     </p:dialog>
                                     
                                     

@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.PostActivate;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,7 +26,7 @@ import javax.inject.Named;
  *
  * @author hesham
  */
-@ViewScoped
+@SessionScoped
 @Named(value = "editAlumniBean")
 public class AlumniEditBean implements Serializable {
 
@@ -42,7 +43,6 @@ public class AlumniEditBean implements Serializable {
     }
 
     @PostConstruct
-    @PostActivate
     public void init() {
         student = sessionBean.getLoggedStudent();
         userName = (String) sessionBean.getSession().getAttribute("userName");
@@ -63,6 +63,7 @@ public class AlumniEditBean implements Serializable {
     public void editAlumniInfo() {
         try {
             int result = alumniEditService.editALumniInfo(student);
+            student = alumniEditService.getAlumniPersonalInfo(userName);
         } catch (SQLException ex) {
             Logger.getLogger(AlumniEditBean.class.getName()).log(Level.SEVERE, null, ex);
         }
